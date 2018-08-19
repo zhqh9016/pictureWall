@@ -1,0 +1,31 @@
+server:
+  port: 8081
+  context-path: /jkx
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/hio_ms?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    driverClassName: com.mysql.jdbc.Driver
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    max-idle: 10
+    max-wait: 10000
+    min-idle: 5
+    initial-size: 5
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+mybatis:
+    config-locations: 'classpath:mybatis-config.xml'
+    mapper-locations: 'classpath:mapper/*.xml'
+logging.level.root: info
+# 是否开启shiro认证
+shiro.custom:
+# 是否开启shiro认证(关闭后保留登录功能,但不登陆也能访问所有页面)
+  enabled: true 
+  #是否使用redis存储session信息,如果开启需要提供有效的redis服务,否则无法正常启动项目.
+  redisSession.enabled: false
+# 巡查任务附件地址
+attachment:
+  patrol: 'E:/work/nginx/nginx-1.12.2/html/attachment/patrol'
+  callback: 'E:/work/nginx/nginx-1.12.2/html/attachment/callback'

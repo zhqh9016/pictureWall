@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.taikang.jkx.mapper.DestfileMapper">
+  <resultMap id="BaseResultMap" type="com.taikang.jkx.model.Destfile">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="dst_file_name" jdbcType="VARCHAR" property="dstFileName" />
+    <result column="x" jdbcType="INTEGER" property="x" />
+    <result column="y" jdbcType="INTEGER" property="y" />
+    <result column="fileName" jdbcType="VARCHAR" property="filename" />
+    <result column="source_r" jdbcType="INTEGER" property="sourceR" />
+    <result column="source_g" jdbcType="INTEGER" property="sourceG" />
+    <result column="source_b" jdbcType="INTEGER" property="sourceB" />
+    <result column="file_r" jdbcType="INTEGER" property="fileR" />
+    <result column="file_g" jdbcType="INTEGER" property="fileG" />
+    <result column="file_b" jdbcType="INTEGER" property="fileB" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, dst_file_name, x, y, fileName, source_r, source_g, source_b, file_r, file_g, 
+    file_b
+  </sql>
+  <select id="selectByExample" parameterType="com.taikang.jkx.model.DestfileExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from destfile
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from destfile
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from destfile
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.taikang.jkx.model.DestfileExample">
+    delete from destfile
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.taikang.jkx.model.Destfile">
+    insert into destfile (id, dst_file_name, x, 
+      y, fileName, source_r, 
+      source_g, source_b, file_r, 
+      file_g, file_b)
+    values (#{id,jdbcType=INTEGER}, #{dstFileName,jdbcType=VARCHAR}, #{x,jdbcType=INTEGER}, 
+      #{y,jdbcType=INTEGER}, #{filename,jdbcType=VARCHAR}, #{sourceR,jdbcType=INTEGER}, 
+      #{sourceG,jdbcType=INTEGER}, #{sourceB,jdbcType=INTEGER}, #{fileR,jdbcType=INTEGER}, 
+      #{fileG,jdbcType=INTEGER}, #{fileB,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.taikang.jkx.model.Destfile">
+    insert into destfile
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="dstFileName != null">
+        dst_file_name,
+      </if>
+      <if test="x != null">
+        x,
+      </if>
+      <if test="y != null">
+        y,
+      </if>
+      <if test="filename != null">
+        fileName,
+      </if>
+      <if test="sourceR != null">
+        source_r,
+      </if>
+      <if test="sourceG != null">
+        source_g,
+      </if>
+      <if test="sourceB != null">
+        source_b,
+      </if>
+      <if test="fileR != null">
+        file_r,
+      </if>
+      <if test="fileG != null">
+        file_g,
+      </if>
+      <if test="fileB != null">
+        file_b,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="dstFileName != null">
+        #{dstFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="x != null">
+        #{x,jdbcType=INTEGER},
+      </if>
+      <if test="y != null">
+        #{y,jdbcType=INTEGER},
+      </if>
+      <if test="filename != null">
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceR != null">
+        #{sourceR,jdbcType=INTEGER},
+      </if>
+      <if test="sourceG != null">
+        #{sourceG,jdbcType=INTEGER},
+      </if>
+      <if test="sourceB != null">
+        #{sourceB,jdbcType=INTEGER},
+      </if>
+      <if test="fileR != null">
+        #{fileR,jdbcType=INTEGER},
+      </if>
+      <if test="fileG != null">
+        #{fileG,jdbcType=INTEGER},
+      </if>
+      <if test="fileB != null">
+        #{fileB,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.taikang.jkx.model.DestfileExample" resultType="java.lang.Long">
+    select count(*) from destfile
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update destfile
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.dstFileName != null">
+        dst_file_name = #{record.dstFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.x != null">
+        x = #{record.x,jdbcType=INTEGER},
+      </if>
+      <if test="record.y != null">
+        y = #{record.y,jdbcType=INTEGER},
+      </if>
+      <if test="record.filename != null">
+        fileName = #{record.filename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourceR != null">
+        source_r = #{record.sourceR,jdbcType=INTEGER},
+      </if>
+      <if test="record.sourceG != null">
+        source_g = #{record.sourceG,jdbcType=INTEGER},
+      </if>
+      <if test="record.sourceB != null">
+        source_b = #{record.sourceB,jdbcType=INTEGER},
+      </if>
+      <if test="record.fileR != null">
+        file_r = #{record.fileR,jdbcType=INTEGER},
+      </if>
+      <if test="record.fileG != null">
+        file_g = #{record.fileG,jdbcType=INTEGER},
+      </if>
+      <if test="record.fileB != null">
+        file_b = #{record.fileB,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update destfile
+    set id = #{record.id,jdbcType=INTEGER},
+      dst_file_name = #{record.dstFileName,jdbcType=VARCHAR},
+      x = #{record.x,jdbcType=INTEGER},
+      y = #{record.y,jdbcType=INTEGER},
+      fileName = #{record.filename,jdbcType=VARCHAR},
+      source_r = #{record.sourceR,jdbcType=INTEGER},
+      source_g = #{record.sourceG,jdbcType=INTEGER},
+      source_b = #{record.sourceB,jdbcType=INTEGER},
+      file_r = #{record.fileR,jdbcType=INTEGER},
+      file_g = #{record.fileG,jdbcType=INTEGER},
+      file_b = #{record.fileB,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.taikang.jkx.model.Destfile">
+    update destfile
+    <set>
+      <if test="dstFileName != null">
+        dst_file_name = #{dstFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="x != null">
+        x = #{x,jdbcType=INTEGER},
+      </if>
+      <if test="y != null">
+        y = #{y,jdbcType=INTEGER},
+      </if>
+      <if test="filename != null">
+        fileName = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceR != null">
+        source_r = #{sourceR,jdbcType=INTEGER},
+      </if>
+      <if test="sourceG != null">
+        source_g = #{sourceG,jdbcType=INTEGER},
+      </if>
+      <if test="sourceB != null">
+        source_b = #{sourceB,jdbcType=INTEGER},
+      </if>
+      <if test="fileR != null">
+        file_r = #{fileR,jdbcType=INTEGER},
+      </if>
+      <if test="fileG != null">
+        file_g = #{fileG,jdbcType=INTEGER},
+      </if>
+      <if test="fileB != null">
+        file_b = #{fileB,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.taikang.jkx.model.Destfile">
+    update destfile
+    set dst_file_name = #{dstFileName,jdbcType=VARCHAR},
+      x = #{x,jdbcType=INTEGER},
+      y = #{y,jdbcType=INTEGER},
+      fileName = #{filename,jdbcType=VARCHAR},
+      source_r = #{sourceR,jdbcType=INTEGER},
+      source_g = #{sourceG,jdbcType=INTEGER},
+      source_b = #{sourceB,jdbcType=INTEGER},
+      file_r = #{fileR,jdbcType=INTEGER},
+      file_g = #{fileG,jdbcType=INTEGER},
+      file_b = #{fileB,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
