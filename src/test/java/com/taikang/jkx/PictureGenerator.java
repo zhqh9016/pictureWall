@@ -78,7 +78,9 @@ public class PictureGenerator {
 				int count = 1;
 				for (File file : listFiles) {
 					if(file.isFile()){
-						file.renameTo(new File(renameDirectory, count + ".jpg"));
+						String[] split = file.getName().split("\\.");
+						String string = split[split.length-1];
+						file.renameTo(new File(renameDirectory, count +"."+ string));
 						count++;
 					}
 				}
@@ -134,6 +136,7 @@ public class PictureGenerator {
 			if (listFiles.length > 0) {
 				for (File file : listFiles) {
 					if(file.isFile()){
+						System.out.println(file.getName());
 						BufferedImage read = ImageIO.read(file);
 						int height = read.getHeight();
 						int width = read.getWidth();
@@ -206,6 +209,8 @@ public class PictureGenerator {
 	public void countRgb(File fangDirectory) throws IOException {
 		if (fangDirectory.exists() && fangDirectory.isDirectory()) {
 			File[] listFiles = fangDirectory.listFiles();
+			FilergbsExample example = new FilergbsExample(); 
+			filergbsMapper.deleteByExample(example);
 			if (listFiles.length > 0) {
 				for (File file : listFiles) {
 					if(file.isFile()){
@@ -316,6 +321,8 @@ public class PictureGenerator {
 	}
 	
 	public void compareSpace(File sourceFile) throws IOException{
+		DestfileExample example_ = new DestfileExample();
+		destfileMapper.deleteByExample(example_);
 		FilergbsExample example = new FilergbsExample();
 		List<Filergbs> selectByExample = filergbsMapper.selectByExample(example);
 		BufferedImage read = ImageIO.read(sourceFile);
@@ -419,10 +426,10 @@ public class PictureGenerator {
 				for (File file : listFiles) {
 					if(file.isFile()){
 						BufferedImage read = ImageIO.read(file);
-						BufferedImage bi = new BufferedImage(50, 50, BufferedImage.TYPE_INT_RGB);
-						float rate = read.getHeight() / 50;
-						for (int i = 0; i < 50; i++) {
-							for (int j = 0; j < 50; j++) {
+						BufferedImage bi = new BufferedImage(150, 150, BufferedImage.TYPE_INT_RGB);
+						float rate = read.getHeight() / 150;
+						for (int i = 0; i < 150; i++) {
+							for (int j = 0; j < 150; j++) {
 								int rgb = read.getRGB((int) (i * rate), (int) (j * rate));
 								bi.setRGB(i, j, rgb);
 							}
@@ -474,7 +481,7 @@ public class PictureGenerator {
 		BufferedImage read2 = ImageIO.read(sourceFile);
 		int height = read2.getHeight();
 		int width = read2.getWidth();
-		BufferedImage bi = new BufferedImage(width*50, height*50, BufferedImage.TYPE_INT_RGB);
+		BufferedImage bi = new BufferedImage(width*150, height*150, BufferedImage.TYPE_INT_RGB);
 		Graphics graphics = bi.getGraphics();
 		DestfileExample example = new DestfileExample();
 		Criteria criteria = example.createCriteria();
@@ -487,7 +494,7 @@ public class PictureGenerator {
 				Integer y = destfile.getY();
 				File waitPinjieFile = new File(resizeDirectory, filename);
 				BufferedImage read = ImageIO.read(waitPinjieFile);
-				graphics.drawImage(read, x * 50, y * 50, 50, 50, Color.LIGHT_GRAY, null);
+				graphics.drawImage(read, x * 150, y * 150, 150, 150, Color.LIGHT_GRAY, null);
 			}
 			ImageIO.write(bi, "jpg", destFile);
 		}
@@ -499,17 +506,17 @@ public class PictureGenerator {
 	 */
 	@Test
 	public void fun7() throws IOException{
-		File sourceFile = new File("D:/weidayan.jpg");
-		File destFile = new File("D:/weidayanDest.jpg");
-		File sourceDirectory = new File("D:/smallPic");
-		File renameDirectory = new File("D:/smallPic/rename");
-		File fangDirectory = new File("D:/smallPic/fang");
-		File resizeDirectory = new File("D:/smallPic/resize");
+		File sourceFile = new File("D:/maobuyi.jpeg");
+		File destFile = new File("D:/maobuyiDest.jpg");
+		File sourceDirectory = new File("D:/maobuyi");
+		File renameDirectory = new File(sourceDirectory,"rename");
+		File fangDirectory = new File(sourceDirectory,"fang");
+		File resizeDirectory = new File(sourceDirectory,"resize");
 //		renamePicture(sourceDirectory, renameDirectory);
 //		xiujian(renameDirectory, fangDirectory );
 //		countRgb(fangDirectory);
 		compareSpace(sourceFile);
-//		resizePicture(fangDirectory,resizeDirectory);
+		resizePicture(fangDirectory,resizeDirectory);
 		pinjie(resizeDirectory, sourceFile.getName(), destFile,sourceFile);
 	}
 
